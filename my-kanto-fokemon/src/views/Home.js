@@ -1,4 +1,5 @@
 import React from 'react'
+import FokemonTile from '../components/fokemon-tile'
 
 class Home extends React.Component {
   constructor() {
@@ -26,32 +27,48 @@ class Home extends React.Component {
       })
   }
 
-  addToFavorites(event) {
-    let index = event.target.id
-    console.log(index)
-    // this.setState({
-    //   favorites: this.state.favorites.push()
-    // })
+  addToFavorites = (fokemon) => () => {
+    this.setState({
+      favorites: [...this.state.favorites, fokemon]
+    })
   }
 
   render() {
     let fokemonTiles = this.state.fokemons.map(fokemon => {
+
       return (
-      <div 
-        id = { "fokemon-tile" + fokemon.id } 
-        className = "fokemon-tile" 
-        key = { fokemon.id }
-        onClick = { this.addToFavorites.bind(this) } 
-      >
-        <span className="fokemon-name"> #{ fokemon.id } { fokemon.name } </span>
-        <img className="sprite" src={ fokemon.sprite } alt = { fokemon.name + "_image" }></img>
-      </div>
+        <FokemonTile 
+          id = { fokemon.id } 
+          name = { fokemon.name }
+          sprite = { fokemon.sprite }
+          key = { fokemon.id }
+          addToFavorites = { this.addToFavorites.bind(this) } 
+        />
+      )
+    })
+
+    let favoriteTiles = this.state.favorites.map((fokemon, i ) => {
+
+      return (
+        <FokemonTile 
+          id = { fokemon.id } 
+          name = { fokemon.name }
+          sprite = { fokemon.sprite }
+          key = { i }
+        />
       )
     })
 
     return(
       <div id="home-page" className="page">
         <h2>Kanto Fokemon List</h2>
+
+        <h3>My Favorites</h3>
+        <div className="fokemon-container">
+          { favoriteTiles }
+        </div>
+
+        <h3>All Pokemon ( Click to add to your favorites! )</h3>
         <div className="fokemon-container">
           { fokemonTiles }
         </div>
