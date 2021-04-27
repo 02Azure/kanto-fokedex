@@ -3,9 +3,10 @@ import FokemonTile from '../components/fokemon-tile.jsx'
 import useFetchFokemon from '../hooks/useFetchFokemon.jsx'
 import useFavFokemons from '../hooks/useFavFokemons.jsx'
 import titleImg from '../assets/title.png'
+import loadingImg from '../assets/loading-pokeball.gif'
 
 function Home() {
-  const fokemons = useFetchFokemon()
+  const { fokemons, loadingFokemons } = useFetchFokemon()
   const { favorites, addToFavorites, removeFromFavorites } = useFavFokemons() //akan direuse di halaman detil 1 fokemon nanti
 
   let fokemonTiles = fokemons.map(fokemon => {
@@ -42,9 +43,21 @@ function Home() {
       </div>
 
       <h3>All Fokemon ( Click to add to your favorites! )</h3>
-      <div className="fokemon-container">
-        { fokemonTiles }
-      </div>
+      { loadingFokemons ? 
+        <>
+          <img 
+            className = "loading-image"
+            src = { loadingImg } 
+            alt = "loading-pokeball.gif"
+          /> 
+          <h2 className="loading-text"> Loading fokemon list...</h2>
+        </>
+        :
+
+        <div className="fokemon-container">
+          { fokemonTiles }
+        </div>
+      }
     </div>
   )
 }

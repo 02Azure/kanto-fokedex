@@ -5,6 +5,35 @@ html {
 .page {
   margin: 15px; 
 }
+
+.loading-image {
+  display: block;
+  margin: auto;
+  max-height: 175px;
+}
+
+.loading-text {
+  font-size: 1.3em;
+  text-align: center;
+  animation-duration: 1.75s;
+  animation-name: blinking;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes blinking {
+  0%{
+     opacity:100%;
+  }
+
+  50%{
+     opacity:20%;
+  }
+
+  100%{
+    opacity: 100%;
+  }
+}
 /* =======================  HOME PAGE ============================= */
 #title-img {
   display: block;
