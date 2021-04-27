@@ -1,7 +1,16 @@
+html {
+  background-color: mintcream;
+}
+
 .page {
   margin: 15px; 
 }
 /* =======================  HOME PAGE ============================= */
+#title-img {
+  display: block;
+  max-height: 150px;
+  margin: 0 auto;
+}
 .fokemon-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -16,7 +25,7 @@
 .fokemon-tile {
   position: relative;
   display: flex;
-  background-color: azure;
+  background-color: lightcyan;
   align-items: center;
   justify-content: space-between;
   outline: solid black 1px;
