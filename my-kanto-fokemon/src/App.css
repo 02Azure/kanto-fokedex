@@ -1,55 +1,20 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .page {
   margin: 15px; 
 }
 /* =======================  HOME PAGE ============================= */
-
-
 .fokemon-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   grid-gap: 20px;
 }
 
+.sprite {
+  display:inline-block;
+  max-height:50px;
+}
+
 .fokemon-tile {
+  position: relative;
   display: flex;
   background-color: azure;
   align-items: center;
@@ -65,7 +30,35 @@
   outline-color: transparent;
   border-color: blue;
 }
-.sprite {
-  display:inline-block;
-  max-height:50px;
+
+.fokemon-tile:hover .fa {
+  visibility: visible;
+}
+
+.fa-heart {
+  visibility:hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: tomato;
+  font-size: 1.15em;
+  transition: color 0.4s;
+}
+
+.fa-heart:hover {
+  color:red;
+}
+
+.fa-times {
+  visibility:hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: black;
+  font-size: 1.15em;
+  transition: color 0.4s;
+}
+
+.fa-times:hover {
+  color:red;
 }
