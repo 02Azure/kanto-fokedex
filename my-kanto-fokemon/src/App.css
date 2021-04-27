@@ -100,3 +100,14 @@ html {
 .fa-times:hover {
   color:red;
 }
+
+/* ============ FOKEMON DETAIL PAGE ============= */
+#fokemon-detail {
+  display: flex;
+  justify-content: space-between;
+}
+#fokemon-main-image {
+  padding: 1em;
+  max-height: 180px;
+  border: solid black 2px;
+}
