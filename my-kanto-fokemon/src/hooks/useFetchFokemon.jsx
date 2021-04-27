@@ -16,7 +16,7 @@ function useFetchFokemon() {
         //tes
         setTimeout(() => {
           setLoadingFokemons(false)
-        }, 2000)
+        }, 1200)
 
       })
       .catch(err => {

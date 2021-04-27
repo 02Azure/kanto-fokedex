@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
+import { useParams, useHistory } from "react-router-dom"
 
 function FokemonDetail() {
   const [fokemon, setFokemon] = useState({})
+  let history = useHistory()
+  let { id } = useParams()
   
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon/1/")
+    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then(resDetail => resDetail.json())
       .then(detail => {
-        fetch("https://pokeapi.co/api/v2/pokemon-species/1")
+        fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
           .then(resSpecies => resSpecies.json())
           .then(species => {
             let { id, name, height, weight, types } = detail
@@ -27,7 +30,13 @@ function FokemonDetail() {
             setFokemon(fokemonData)
           })
       })
+    .catch((err => console.log(err)))
   }, [])
+
+  function returnToHome(event) {
+    event.preventDefault()
+    history.push("/")
+  }
 
   return(
     <div id="fokemon-detail-page" className="page">
@@ -52,6 +61,8 @@ function FokemonDetail() {
           alt = { fokemon.name + "_image" }
         />
       </div>
+
+      <a className="return-link" onClick = { returnToHome } href="/">Return</a>
     </div>
   )
 }

@@ -1,16 +1,23 @@
 import React from 'react'
+import { useHistory } from "react-router-dom"
 
 function FokemonTile(props) {
+  let history = useHistory()
   let fokemon = {
     id: props.id,
     name: props.name,
     sprite: props.sprite
   }
 
+  function toFokemonDetail(event) {
+    history.push(`/fokedex/${fokemon.id}`)
+  }
+
   return (
     <div 
       className = "fokemon-tile" 
       key = { fokemon.id }
+      onClick = { toFokemonDetail }
     >
       <span className = "fokemon-name">
         #{ fokemon.id } { fokemon.name } 

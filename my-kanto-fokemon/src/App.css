@@ -106,8 +106,14 @@ html {
   display: flex;
   justify-content: space-between;
 }
+
 #fokemon-main-image {
   padding: 1em;
   max-height: 180px;
   border: solid black 2px;
+}
+
+.return-link {
+  text-align:center;
+  margin: auto;
 }
