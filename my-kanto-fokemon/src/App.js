@@ -7,9 +7,11 @@ import {
 } from "react-router-dom"
 import Home from "./views/Home.jsx"
 import FokemonDetail from './views/FokemonDetail.jsx'
+import useFavFokemons from './hooks/useFavFokemons.jsx'
 
-class App extends React.Component {
-  render() {
+function App() {
+  const { favorites, addToFavorites, removeFromFavorites } = useFavFokemons()
+
     return(
     <Router>
       <div>
@@ -18,13 +20,16 @@ class App extends React.Component {
             <FokemonDetail />
           </Route>
           <Route path="/">
-            <Home />
+            <Home
+              favorites = { favorites }
+              addToFavorites = { addToFavorites }
+              removeFromFavorites = { removeFromFavorites }
+            />
           </Route>
         </Switch>
       </div>
     </Router>
     )
-  }
 }
 
 export default App;

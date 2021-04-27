@@ -31,7 +31,7 @@ function FokemonDetail() {
           })
       })
     .catch((err => console.log(err)))
-  }, [])
+  }, [id])
 
   function returnToHome(event) {
     event.preventDefault()

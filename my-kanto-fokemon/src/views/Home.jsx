@@ -1,30 +1,28 @@
 import React from 'react'
 import FokemonTile from '../components/fokemon-tile.jsx'
 import useFetchFokemon from '../hooks/useFetchFokemon.jsx'
-import useFavFokemons from '../hooks/useFavFokemons.jsx'
 import titleImg from '../assets/title.png'
 import loadingImg from '../assets/loading-pokeball.gif'
 
-function Home() {
+function Home(props) {
   const { fokemons, loadingFokemons } = useFetchFokemon()
-  const { favorites, addToFavorites, removeFromFavorites } = useFavFokemons()
 
   let fokemonTiles = fokemons.map(fokemon => {
     return (
       <FokemonTile 
         { ...fokemon }
         key = { fokemon.id }
-        addToFavorites = { addToFavorites } 
+        addToFavorites = { props.addToFavorites } 
       />
     )
   })
 
-  let favoriteTiles = favorites.map(fokemon => {
+  let favoriteTiles = props.favorites.map(fokemon => {
     return (
       <FokemonTile 
         { ...fokemon }
         key = { fokemon.id }
-        removeFromFavorites = { removeFromFavorites } 
+        removeFromFavorites = { props.removeFromFavorites } 
       />
     )
   })
