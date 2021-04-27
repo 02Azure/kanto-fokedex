@@ -7,7 +7,7 @@ import loadingImg from '../assets/loading-pokeball.gif'
 
 function Home() {
   const { fokemons, loadingFokemons } = useFetchFokemon()
-  const { favorites, addToFavorites, removeFromFavorites } = useFavFokemons() //akan direuse di halaman detil 1 fokemon nanti
+  const { favorites, addToFavorites, removeFromFavorites } = useFavFokemons()
 
   let fokemonTiles = fokemons.map(fokemon => {
     return (
