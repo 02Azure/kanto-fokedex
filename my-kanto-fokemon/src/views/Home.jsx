@@ -41,13 +41,13 @@ function Home() {
     )
   })
 
-  let favoriteTiles = favorites.map((fokemon, i ) => {
+  let favoriteTiles = favorites.map(fokemon => {
     return (
       <FokemonTile 
         id = { fokemon.id } 
         name = { fokemon.name }
         sprite = { fokemon.sprite }
-        key = { i }
+        key = { fokemon.id }
         removeFromFavorites = { removeFromFavorites } 
       />
     )
