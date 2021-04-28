@@ -1,14 +1,17 @@
 import React from 'react'
-import FokemonTile from '../components/fokemonTile.jsx'
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+import FokemonTile from '../components/fokemonTile.jsx'
 
-function Favorites(props) {
-  let favoriteTiles = props.favorites.map(fokemon => {
+function Favorites() {
+  const favorites = useSelector(state => state.favorites)
+
+  let favoriteTiles = favorites.map(fokemon => {
     return (
       <FokemonTile 
         { ...fokemon }
         key = { fokemon.id }
-        removeFromFavorites = { props.removeFromFavorites } 
+        action = "delete"
       />
     )
   })

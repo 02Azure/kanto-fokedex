@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useParams, useHistory, Link } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import { setFokemon } from "../store/actions.js"
 import LoadingFokeball from "../components/loadingFokeball.jsx"
 
 function FokemonDetail() {
-  const [fokemon, setFokemon] = useState({})
+  const dispatch = useDispatch()
+  const fokemon = useSelector(state => state.fokemon)
   const [loading, setLoading] = useState(true)
-
   let history = useHistory()
   let { id } = useParams()
   
@@ -45,7 +47,7 @@ function FokemonDetail() {
           id, name, form, height, weight, types, flavor_text
         }
 
-        setFokemon(fokemonData)
+        dispatch(setFokemon(fokemonData))
       })
 
     .catch((err => {

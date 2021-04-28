@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from "react-redux"
+import { setFokemons } from "../store/actions.js"
 import FokemonTile from '../components/fokemonTile.jsx'
 import LoadingFokeball from '../components/loadingFokeball.jsx'
 import titleImg from '../assets/title.png'
-import { useSelector, useDispatch } from "react-redux"
 
-function Home(props) {
+
+function Home() {
   const fokemons = useSelector(state => state.fokemons)
   const dispatch = useDispatch()
   const [loadingFokemons, setLoadingFokemons] = useState(true)
@@ -17,7 +19,7 @@ function Home(props) {
           fokemon.id = i + 1
           fokemon.sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`
         })
-        dispatch({ type: "fokemons/getAll", payload: data.results })
+        dispatch(setFokemons(data.results))
         //tes
         setTimeout(() => {
           setLoadingFokemons(false)
@@ -34,7 +36,7 @@ function Home(props) {
       <FokemonTile 
         { ...fokemon }
         key = { fokemon.id }
-        addToFavorites = { props.addToFavorites } 
+        action = "add" 
       />
     )
   })
@@ -48,8 +50,8 @@ function Home(props) {
       />
       <h3>All Fokemon</h3>
       { loadingFokemons ? 
-      <LoadingFokeball msg="Loading fokemon list..." />
-        :
+        <LoadingFokeball msg="Loading fokemon list..." />
+      :
         <div className="fokemon-container">
           { fokemonTiles }
         </div>

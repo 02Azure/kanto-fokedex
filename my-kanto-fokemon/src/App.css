@@ -110,18 +110,18 @@ nav {
   visibility: visible;
 }
 
-.fa-heart {
+.fa-star {
   visibility:hidden;
   position: absolute;
   top: 0;
   right: 0;
-  color: tomato;
+  color: orange;
   font-size: 1.15em;
   transition: color 0.4s;
 }
 
-.fa-heart:hover {
-  color:red;
+.fa-star:hover {
+  color:orangered;
 }
 
 .fa-times {
@@ -153,6 +153,7 @@ nav {
 #fokemon-detail {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 #fokemon-main-image {
