@@ -160,6 +160,19 @@ nav a {
   padding: 0.25em !important;
 }
 
+#search-box {
+  text-align:center;
+}
+
+#search-box input {
+  min-width: 40vw;
+  font-size: 1.1em;
+}
+
+#search-box button {
+  margin-left: 1em;
+  min-width: 50px;
+}
 /* ============ FOKEMON DETAIL PAGE ============= */
 #fokemon-detail-page {
   min-height: 100vh;

@@ -9,6 +9,10 @@ function Home() {
   const fokemons = useSelector(state => state.fokemons)
   const dispatch = useDispatch()
   const [loadingFokemons, setLoadingFokemons] = useState(true)
+  const [filterKeyword, setFilterKeyword] = useState("")
+  const [filteredFokemons, setFilteredFokemons] = useState([])
+  const [timeoutId, setTimeoutId] = useState(0)
+  const [isSearching, setIsSearching] = useState(false)
 
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
@@ -19,6 +23,7 @@ function Home() {
           fokemon.sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`
         })
         dispatch(setFokemons(data.results))
+        setFilteredFokemons(data.results)
         //tes
         setTimeout(() => {
           setLoadingFokemons(false)
@@ -30,7 +35,22 @@ function Home() {
       })
   }, []) 
 
-  let fokemonTiles = fokemons.map(fokemon => {
+  useEffect(() => {
+    if(isSearching) {
+      setTimeoutId(setTimeout (() => {
+        let filtered = fokemons.filter(fokemon => fokemon.name.includes(filterKeyword))
+        setFilteredFokemons(filtered)
+      }, 2000))
+    }
+  }, [filterKeyword])
+
+  function handleFilterKeyword(event) {
+    clearTimeout(timeoutId)
+    setIsSearching(true)
+    setFilterKeyword(event.target.value)
+  }
+
+  let fokemonTiles = filteredFokemons.map(fokemon => {
     return (
       <FokemonTile 
         { ...fokemon }
@@ -51,9 +71,25 @@ function Home() {
       { loadingFokemons ? 
         <LoadingFokeball msg="Loading fokemon list..." />
       :
-        <div className="fokemon-container">
-          { fokemonTiles }
+        <>
+        <div id="search-box">
+          <input 
+            id = "foke-search" 
+            type = "text" 
+            placeholder = "Search by name"
+            value = { filterKeyword }
+            onChange = { handleFilterKeyword }
+          /> 
         </div>
+        <br/><br/>
+        { fokemonTiles.length ? 
+          <div className="fokemon-container">
+            { fokemonTiles }
+          </div>
+        : 
+          <div>No fokemon is found with that keyword...</div> 
+        }
+        </>
       }
     </div>
   )
