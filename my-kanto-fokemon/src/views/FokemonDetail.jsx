@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useHistory } from "react-router-dom"
+import { useParams, useHistory, Link } from "react-router-dom"
 
 function FokemonDetail() {
   const [fokemon, setFokemon] = useState({})
@@ -7,36 +7,50 @@ function FokemonDetail() {
   let { id } = useParams()
   
   useEffect(() => {
+    let mainDetail = {}
+
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .then(resDetail => resDetail.json())
-      .then(detail => {
-        fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
-          .then(resSpecies => resSpecies.json())
-          .then(species => {
-            let { id, name, height, weight, types } = detail
-            name = name[0].toUpperCase() + name.slice(1)
-            types = types.map(typeNum => typeNum.type.name[0].toUpperCase() + typeNum.type.name.slice(1)).join("/")
-
-            let flavor_text = species.flavor_text_entries[0].flavor_text
-            flavor_text = flavor_text.split(".").join(". ")
-
-            let form = species.egg_groups[0].name
-            form = form[0].toUpperCase() + form.slice(1)
-
-            let fokemonData = {
-              id, name, form, height, weight, types, flavor_text
-            }
-
-            setFokemon(fokemonData)
-          })
+      .then(resMain => {
+        if(!resMain.ok) throw { status: resMain.status, msg: resMain.statusText } 
+        return resMain.json()
       })
-    .catch((err => console.log(err)))
-  }, [id])
 
-  function returnToHome(event) {
-    event.preventDefault()
-    history.push("/")
-  }
+      .then(mainData => {
+        mainDetail = mainData
+        return fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
+      })
+
+      .then(resSecondary => {
+        if(!resSecondary.ok) throw { status: resSecondary.status, msg: resSecondary.statusText } 
+        return resSecondary.json()
+      })
+
+      .then(secondaryDetail => {
+        let { id, name, height, weight, types } = mainDetail
+        name = name[0].toUpperCase() + name.slice(1)
+        height /= 10
+        weight /= 10
+        types = types.map(typeNum => typeNum.type.name[0].toUpperCase() + typeNum.type.name.slice(1)).join("/")
+
+        let flavor_text = secondaryDetail.flavor_text_entries[0].flavor_text
+        flavor_text = flavor_text.split(".").join(". ")
+
+        let form = secondaryDetail.egg_groups[0].name
+        form = form[0].toUpperCase() + form.slice(1)
+
+        let fokemonData = {
+          id, name, form, height, weight, types, flavor_text
+        }
+
+        setFokemon(fokemonData)
+
+      })
+
+    .catch((err => {
+      if(err.status === 404)
+      history.push("/notfound")
+    }))
+  }, [id, history])
 
   return(
     <div id="fokemon-detail-page" className="page">
@@ -46,12 +60,9 @@ function FokemonDetail() {
       <div id="fokemon-detail">
         <div id="fokebody-info">
           <h3 id="fokemon-form">{ fokemon.form } Fokemon</h3>
-          <p id="fokemon-flavor-text">
-            { fokemon.flavor_text }
-          </p>
-
-          <p id="fokemon-height">Height: { fokemon.height / 10 } m</p>
-          <p id="fokemon-weight">Weight: { fokemon.weight / 10} kg</p>
+          <p id="fokemon-flavor-text">{ fokemon.flavor_text }</p>
+          <p id="fokemon-height">Height: { fokemon.height} m</p>
+          <p id="fokemon-weight">Weight: { fokemon.weight} kg</p>
           <p id="fokemon-types">Type: { fokemon.types }</p>
         </div>
 
@@ -62,7 +73,7 @@ function FokemonDetail() {
         />
       </div>
 
-      <a className="return-link" onClick = { returnToHome } href="/">Return</a>
+      <Link className="return-link" to="/">Return</Link>
     </div>
   )
 }

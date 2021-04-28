@@ -117,3 +117,24 @@ html {
   text-align:center;
   margin: auto;
 }
+
+/* ========= NOTFOUND PAGE =========== */
+#not-found-page {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+}
+
+#not-found-page h2 {
+  color: red;
+  font-size: 2.5em;
+}
+
+#not-found-page img {
+  height: 300px;
+  width: 300px;
+}
+
+#not-found-page p {
+  font-size: 1.5em;
+}

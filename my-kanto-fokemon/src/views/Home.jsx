@@ -3,6 +3,7 @@ import FokemonTile from '../components/fokemon-tile.jsx'
 import useFetchFokemon from '../hooks/useFetchFokemon.jsx'
 import titleImg from '../assets/title.png'
 import loadingImg from '../assets/loading-pokeball.gif'
+import { Link } from "react-router-dom"
 
 function Home(props) {
   const { fokemons, loadingFokemons } = useFetchFokemon()
@@ -17,16 +18,6 @@ function Home(props) {
     )
   })
 
-  let favoriteTiles = props.favorites.map(fokemon => {
-    return (
-      <FokemonTile 
-        { ...fokemon }
-        key = { fokemon.id }
-        removeFromFavorites = { props.removeFromFavorites } 
-      />
-    )
-  })
-
   return(
     <div id="home-page" className="page">
       <img 
@@ -34,13 +25,8 @@ function Home(props) {
         src = { titleImg }  
         alt = "fokedex"
       />
-      
-      <h3>My Favorites</h3>
-      <div className="fokemon-container">
-        { favoriteTiles }
-      </div>
-
-      <h3>All Fokemon ( Click to add to your favorites! )</h3>
+      <Link to="/favorites">My Favorites</Link>
+      <h3>All Fokemon</h3>
       { loadingFokemons ? 
         <>
           <img 

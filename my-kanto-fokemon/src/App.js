@@ -1,4 +1,4 @@
-import './App.css';
+import "./App.css"
 import React from "react"
 import {
   BrowserRouter as Router,
@@ -6,8 +6,10 @@ import {
   Route
 } from "react-router-dom"
 import Home from "./views/Home.jsx"
-import FokemonDetail from './views/FokemonDetail.jsx'
-import useFavFokemons from './hooks/useFavFokemons.jsx'
+import Favorites from "./views/Favorites"
+import FokemonDetail from "./views/FokemonDetail.jsx"
+import NotFound from "./views/NotFound.jsx"
+import useFavFokemons from "./hooks/useFavFokemons.jsx"
 
 function App() {
   const { favorites, addToFavorites, removeFromFavorites } = useFavFokemons()
@@ -19,12 +21,19 @@ function App() {
           <Route path="/fokedex/:id">
             <FokemonDetail />
           </Route>
-          <Route path="/">
-            <Home
+          <Route path="/favorites">
+            <Favorites 
               favorites = { favorites }
-              addToFavorites = { addToFavorites }
               removeFromFavorites = { removeFromFavorites }
             />
+          </Route>
+          <Route exact path="/">
+            <Home
+              addToFavorites = { addToFavorites }
+            />
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </div>
