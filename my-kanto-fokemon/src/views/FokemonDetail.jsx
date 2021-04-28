@@ -82,12 +82,13 @@ function FokemonDetail() {
               <p id="fokemon-weight">Weight: { fokemon.weight} kg</p>
               <p id="fokemon-types">Type: { fokemon.types }</p>
             </div>
-    
-            <img 
-              id = "fokemon-main-image" 
-              src = { `https://pokeres.bastionbot.org/images/pokemon/${fokemon.id}.png`} 
-              alt = { fokemon.name + "_image" }
-            />
+            <div id="fokemon-main-image-container">
+              <img 
+                id = "fokemon-main-image" 
+                src = { `https://pokeres.bastionbot.org/images/pokemon/${fokemon.id}.png`} 
+                alt = { fokemon.name + "_image" }
+              />
+            </div>
           </div>
     
           <Link className="return-link" to="/">Return</Link>

@@ -20,26 +20,40 @@ header {
 }
   
 nav {
-  margin-right: 2em;
   display:flex;
   justify-content: space-between;
   align-items: center;
 }
 
+nav a {
+  margin: 0;
+  padding: 0;
+}
+
 #navbar-img {
   max-height: 2.3em; 
+  cursor: pointer;
 }
 
-#navbar-link-container a {
+.nav-link {
+  display: inline-block;
   text-decoration: none;
-  font-weight: bold;
+  height: 2.3em;
+  line-height: 2.3em;
   font-size: 1em;
   color: black;
-  transition: all 0.4s
+  padding-left: 5px;
+  border-left: solid black 2px;
+  transition: all 0.4s;
 }
 
-#navbar-link-container a:hover {
-  color: blue;
+.nav-link:last-child{
+  padding-right: 1.7em;
+}
+
+.nav-link:hover {
+  color: yellow;
+  background-color: steelblue;
 }
 
 /* =============== LOADING COMPONENT ========== */
@@ -110,7 +124,7 @@ nav {
   visibility: visible;
 }
 
-.fa-star {
+.fokemon-tile .fa-star {
   visibility:hidden;
   position: absolute;
   top: 0;
@@ -120,7 +134,7 @@ nav {
   transition: color 0.4s;
 }
 
-.fa-star:hover {
+.fokemon-tile .fa-star:hover {
   color:orangered;
 }
 
@@ -154,12 +168,19 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+}
+
+#fokemon-main-image-container {
+  border: solid black 2px;
+  background-image: url("./assets/fokemonDetailBg.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 #fokemon-main-image {
   padding: 1em;
   max-height: 180px;
-  border: solid black 2px;
 }
 
 .return-link {
