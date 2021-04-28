@@ -5,15 +5,26 @@ import {
   Switch,
   Route
 } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
 import Home from "./views/Home.jsx"
 import Favorites from "./views/Favorites"
 import FokemonDetail from "./views/FokemonDetail.jsx"
 import NotFound from "./views/NotFound.jsx"
 import Navbar from "./components/navbar.jsx"
-import useFavFokemons from "./hooks/useFavFokemons.jsx"
 
 function App() {
-  const { favorites, addToFavorites, removeFromFavorites } = useFavFokemons()
+  const favorites = useSelector(state => state.favorites)
+  const dispatch = useDispatch()
+
+  const addToFavorites = fokemon => event => {
+    event.stopPropagation()
+    if(!favorites.find(favFokemon => favFokemon.id === fokemon.id)) dispatch({ type: "favorites/add", payload: fokemon }) 
+  }
+
+  const removeFromFavorites = fokemon => event => {
+    event.stopPropagation()
+    dispatch({ type: "favorites/remove", payload: fokemon })
+  }
 
     return(
     <Router>
