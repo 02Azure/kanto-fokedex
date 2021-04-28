@@ -5,7 +5,6 @@ import FokemonTile from '../components/fokemonTile.jsx'
 import LoadingFokeball from '../components/loadingFokeball.jsx'
 import titleImg from '../assets/title.png'
 
-
 function Home() {
   const fokemons = useSelector(state => state.fokemons)
   const dispatch = useDispatch()

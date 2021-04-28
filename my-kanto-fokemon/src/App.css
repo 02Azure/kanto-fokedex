@@ -152,6 +152,14 @@ nav a {
   color:red;
 }
 
+.swal2-image {
+  margin: 0 auto !important;
+}
+
+.swal2-toast {
+  padding: 0.25em !important;
+}
+
 /* ============ FOKEMON DETAIL PAGE ============= */
 #fokemon-detail-page {
   min-height: 100vh;

@@ -2,6 +2,7 @@ import React from 'react'
 import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { addFavorites, removeFavorites } from "../store/actions"  
+import toast from "../helpers/swalToast"
 
 function FokemonTile(props) {
   const favorites = useSelector(state => state.favorites)
@@ -14,7 +15,14 @@ function FokemonTile(props) {
 
   const addToFavorites = fokemon => event => {
     event.stopPropagation()
-    if(!favorites.find(favFokemon => favFokemon.id === fokemon.id)) dispatch(addFavorites(fokemon)) 
+    if(!favorites.find(favFokemon => favFokemon.id === fokemon.id)) {
+      dispatch(addFavorites(fokemon)) 
+      toast.fire({
+        title: `${fokemon.name} has been added to favorites`,
+        imageUrl: fokemon.sprite,
+        imageHeight: 50
+      })
+    } 
   }
 
   const removeFromFavorites = fokemon => event => {
