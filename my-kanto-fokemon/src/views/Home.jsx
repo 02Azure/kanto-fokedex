@@ -1,9 +1,8 @@
 import React from 'react'
-import FokemonTile from '../components/fokemon-tile.jsx'
+import FokemonTile from '../components/fokemonTile.jsx'
+import LoadingFokeball from '../components/loadingFokeball.jsx'
 import useFetchFokemon from '../hooks/useFetchFokemon.jsx'
 import titleImg from '../assets/title.png'
-import loadingImg from '../assets/loading-pokeball.gif'
-import { Link } from "react-router-dom"
 
 function Home(props) {
   const { fokemons, loadingFokemons } = useFetchFokemon()
@@ -25,19 +24,10 @@ function Home(props) {
         src = { titleImg }  
         alt = "fokedex"
       />
-      <Link to="/favorites">My Favorites</Link>
       <h3>All Fokemon</h3>
       { loadingFokemons ? 
-        <>
-          <img 
-            className = "loading-image"
-            src = { loadingImg } 
-            alt = "loading-pokeball.gif"
-          /> 
-          <h2 className="loading-text"> Loading fokemon list...</h2>
-        </>
+      <LoadingFokeball msg="Loading fokemon list..." />
         :
-
         <div className="fokemon-container">
           { fokemonTiles }
         </div>

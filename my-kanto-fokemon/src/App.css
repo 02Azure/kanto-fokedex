@@ -1,11 +1,48 @@
 html {
   background-color: mintcream;
+  margin: 0;
+  padding: 0;
 }
 
 .page {
-  margin: 15px; 
+  margin: 50px 15px 30px 15px; 
 }
 
+/* ============== NAVBAR COMPONENT =========== */
+header {
+  padding-left: 5px;
+  position:fixed;
+  top: 0;
+  z-index: 3;
+  width: 100vw;
+  background-color: powderblue;
+  border-bottom: solid black 1px;
+}
+  
+nav {
+  margin-right: 2em;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#navbar-img {
+  max-height: 2.3em; 
+}
+
+#navbar-link-container a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1em;
+  color: black;
+  transition: all 0.4s
+}
+
+#navbar-link-container a:hover {
+  color: blue;
+}
+
+/* =============== LOADING COMPONENT ========== */
 .loading-image {
   display: block;
   margin: auto;
@@ -102,6 +139,17 @@ html {
 }
 
 /* ============ FOKEMON DETAIL PAGE ============= */
+#fokemon-detail-page {
+  min-height: 100vh;
+}
+
+.loading-container {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  min-height:100vh;
+}
+
 #fokemon-detail {
   display: flex;
   justify-content: space-between;

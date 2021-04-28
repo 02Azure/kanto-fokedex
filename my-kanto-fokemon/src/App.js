@@ -9,6 +9,7 @@ import Home from "./views/Home.jsx"
 import Favorites from "./views/Favorites"
 import FokemonDetail from "./views/FokemonDetail.jsx"
 import NotFound from "./views/NotFound.jsx"
+import Navbar from "./components/navbar.jsx"
 import useFavFokemons from "./hooks/useFavFokemons.jsx"
 
 function App() {
@@ -16,27 +17,26 @@ function App() {
 
     return(
     <Router>
-      <div>
-        <Switch>
-          <Route path="/fokedex/:id">
-            <FokemonDetail />
-          </Route>
-          <Route path="/favorites">
-            <Favorites 
-              favorites = { favorites }
-              removeFromFavorites = { removeFromFavorites }
-            />
-          </Route>
-          <Route exact path="/">
-            <Home
-              addToFavorites = { addToFavorites }
-            />
-          </Route>
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
-      </div>
+      <Navbar />
+      <Switch>
+        <Route path="/fokedex/:id">
+          <FokemonDetail />
+        </Route>
+        <Route path="/favorites">
+          <Favorites 
+            favorites = { favorites }
+            removeFromFavorites = { removeFromFavorites }
+          />
+        </Route>
+        <Route exact path="/">
+          <Home
+            addToFavorites = { addToFavorites }
+          />
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
     </Router>
     )
 }

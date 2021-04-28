@@ -1,5 +1,5 @@
 import React from 'react'
-import surprised_pikachu from '../assets/surprised-pikachu.gif'
+import surprised_pikachu from '../assets/surprisedPikachu.gif'
 
 function NotFound() {
   return(

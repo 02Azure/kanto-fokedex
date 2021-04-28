@@ -1,5 +1,5 @@
 import React from 'react'
-import FokemonTile from '../components/fokemon-tile.jsx'
+import FokemonTile from '../components/fokemonTile.jsx'
 import { Link } from "react-router-dom"
 
 function Favorites(props) {
@@ -17,6 +17,7 @@ function Favorites(props) {
     <div id="favorite-page" className="page">
       <h3>My Favorites</h3>
       <Link to="/">Return to Home</Link>
+      <hr/>
       <div className="fokemon-container">
         { favoriteTiles }
       </div>
