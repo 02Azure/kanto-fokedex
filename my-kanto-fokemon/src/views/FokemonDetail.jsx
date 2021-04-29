@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useHistory, Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { fetchFokemonDetail, setFokemon } from "../store/actions.js"
+import { fetchFokemonDetail, setFokemon, setError } from "../store/actions.js"
 import LoadingFokeball from "../components/loadingFokeball.jsx"
 
 function FokemonDetail() {
@@ -13,25 +13,68 @@ function FokemonDetail() {
   let { id } = useParams()
   
   useEffect(() => {
-    dispatch(fetchFokemonDetail(id))
+    let mainDetail = {}
 
-    return () => {
-      dispatch(setFokemon({})) //reset fokemon biar kalau masuk lagi fokemon id akan kosong sehingga tidak men trigger fokemon.id
-    }
+    dispatch(fetchFokemonDetail(id))
+      .then(resMain => {
+        if(!resMain.ok) {
+          let error = new Error(resMain.statusText)
+          error.code = resMain.status
+          throw error
+        } 
+        return resMain.json()
+      })
+
+      .then(mainData => {
+        mainDetail = mainData
+        return fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
+      })
+
+      .then(resSecondary => {
+        if(!resSecondary.ok) {
+          let error = new Error(resSecondary.statusText)
+          error.code = resSecondary.status
+          throw error
+        }
+        return resSecondary.json()
+      })
+
+      .then(secondaryDetail => {
+        let { id, name, height, weight, types } = mainDetail
+        name = name[0].toUpperCase() + name.slice(1)
+        height /= 10
+        weight /= 10
+        types = types.map(typeNum => typeNum.type.name[0].toUpperCase() + typeNum.type.name.slice(1)).join("/")
+
+        let flavor_text = secondaryDetail.flavor_text_entries[0].flavor_text
+        flavor_text = flavor_text.split(".").join(". ")
+
+        let form = secondaryDetail.egg_groups[0].name
+        form = form[0].toUpperCase() + form.slice(1)
+
+        let fokemonData = {
+          id, name, form, height, weight, types, flavor_text
+        }
+
+        dispatch(setFokemon(fokemonData))
+        
+        setTimeout(() => {
+          setLoading(false)
+        }, 900)
+      })
+
+    .catch(err => {
+      dispatch(setError(err))
+    })
   }, [id])
 
   useEffect(() => {
-    if(fokemon.id) { //kondisional agar saat mounted tidak langsung ganti setloading ke false
-      setTimeout(() => {
-        setLoading(false)
-      }, 900)
-
-    } else if(error.code) { //jika fokemon.id tidak ada ( alias error di fetch )
+    if(error.code) { //jika fokemon.id tidak ada ( alias error di fetch )
       if(error.code === 404) {
         history.push("/notfound")
       }
     }
-  }, [fokemon, error])
+  }, [error])
 
   return(
     <div id="fokemon-detail-page" className="page">

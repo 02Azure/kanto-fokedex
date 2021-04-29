@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
-import { fetchFokemons } from "../store/actions.js"
+import { fetchFokemons, setFokemons, setError } from "../store/actions.js"
 import FokemonTile from '../components/fokemonTile.jsx'
 import LoadingFokeball from '../components/loadingFokeball.jsx'
 import titleImg from '../assets/title.png'
@@ -21,22 +21,41 @@ function Home() {
 
   useEffect(() => {
     dispatch(fetchFokemons())
+      .then(response => { 
+        if(!response.ok) {
+          let error = new Error(response.statusText)
+          error.code = response.status
+          throw error
+        } 
+        return response.json()
+      })
+
+      .then(data => {
+        data.results.forEach((fokemon, i) => {
+          fokemon.id = i + 1
+          fokemon.sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`
+        })
+
+        dispatch(setFokemons(data.results))
+        setFilteredFokemons(data.results)
+
+        setTimeout(() => {
+          setLoading(false)
+        }, 1200)
+      })
+
+      .catch(err => {
+        dispatch(setError(err))
+      })
   }, []) 
 
-  useEffect(() => { //handle local state setelah data fokemons berhasil di fetch
-    if(fokemons.length) {
-      setFilteredFokemons(fokemons)
-
-      setTimeout(() => {
-        setLoading(false)
-      }, 1200)
-
-    } else if(error.code) { //jika fokemons tidak ada isinya ( alias error di fetch )
+  useEffect(() => {
+    if(error.code) {
       if(error.code === 404) { //sementara hanya handle 404 not found
         history.push("/notfound")
       }
     }
-  }, [fokemons, error])
+  }, [error])
 
   useEffect(() => { //debouncing
     if(isSearching) {
