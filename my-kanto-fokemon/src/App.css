@@ -86,15 +86,15 @@ nav a {
 
 @keyframes blinking {
   0%{
-     opacity:100%;
+     opacity: 1;
   }
 
   50%{
-     opacity:20%;
+     opacity: 0.2;
   }
 
   100%{
-    opacity: 100%;
+    opacity: 1;
   }
 }
 /* =======================  HOME PAGE ============================= */
@@ -217,7 +217,7 @@ nav a {
   border: solid black 2px;
   background-image: url("./assets/fokemonDetailBg.png");
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
