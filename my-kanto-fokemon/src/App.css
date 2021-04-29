@@ -1,0 +1,268 @@
+html {
+  background-color: mintcream;
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  margin: 50px 15px 30px 15px; 
+}
+
+th {
+  text-align: left;
+}
+
+th, td {
+  padding: 1em 0;
+}
+
+td {
+  padding-left: 2em;
+}
+
+/* ============== NAVBAR COMPONENT =========== */
+header {
+  padding-left: 5px;
+  position:fixed;
+  top: 0;
+  z-index: 3;
+  width: 100vw;
+  background-color: powderblue;
+  border-bottom: solid black 1px;
+}
+  
+nav {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  margin: 0;
+  padding: 0;
+}
+
+#navbar-img {
+  max-height: 2.3em; 
+  cursor: pointer;
+}
+
+.nav-link {
+  display: inline-block;
+  text-decoration: none;
+  height: 2.3em;
+  line-height: 2.3em;
+  font-size: 1em;
+  color: black;
+  padding-left: 5px;
+  border-left: solid black 2px;
+  transition: all 0.4s;
+}
+
+.nav-link:last-child{
+  padding-right: 1.7em;
+}
+
+.nav-link:hover {
+  color: yellow;
+  background-color: steelblue;
+}
+
+/* =============== LOADING COMPONENT ========== */
+.loading-image {
+  display: block;
+  margin: auto;
+  max-height: 175px;
+}
+
+.loading-text {
+  font-size: 1.3em;
+  text-align: center;
+  animation-duration: 1.75s;
+  animation-name: blinking;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes blinking {
+  0%{
+     opacity:100%;
+  }
+
+  50%{
+     opacity:20%;
+  }
+
+  100%{
+    opacity: 100%;
+  }
+}
+/* =======================  HOME PAGE ============================= */
+#title-img {
+  display: block;
+  max-height: 150px;
+  margin: 0 auto;
+}
+.fokemon-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-gap: 20px;
+}
+
+.sprite {
+  display:inline-block;
+  max-height:50px;
+}
+
+.fokemon-tile {
+  position: relative;
+  display: flex;
+  background-color: lightcyan;
+  align-items: center;
+  justify-content: space-between;
+  outline: solid black 1px;
+  border: solid transparent 2px;
+  padding: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.fokemon-tile:hover {
+  outline-color: transparent;
+  border-color: blue;
+}
+
+.fokemon-tile:hover .fa {
+  visibility: visible;
+}
+
+.fokemon-tile .fa-star {
+  visibility:hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: orange;
+  font-size: 1.15em;
+  transition: color 0.4s;
+}
+
+.fokemon-tile .fa-star:hover {
+  color:orangered;
+}
+
+.fa-times {
+  visibility:hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: black;
+  font-size: 1.15em;
+  transition: color 0.4s;
+}
+
+.fa-times:hover {
+  color:red;
+}
+
+.swal2-image {
+  margin: 0 auto !important;
+}
+
+.swal2-toast {
+  padding: 0.25em !important;
+}
+
+#search-box {
+  text-align:center;
+}
+
+#search-box input {
+  min-width: 40vw;
+  font-size: 1.1em;
+}
+
+#search-box button {
+  margin-left: 1em;
+  min-width: 50px;
+}
+/* ============ FOKEMON DETAIL PAGE ============= */
+#fokemon-detail-page {
+  min-height: 100vh;
+}
+
+.loading-container {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  min-height:100vh;
+}
+
+#fokemon-detail-container {
+  background-color: lightcyan;
+  padding: 1em;
+  border: double 4px slategrey;
+  border-radius: 10px
+}
+
+#fokemon-detail {
+  display: flex;
+  justify-content: space-between;
+}
+
+#fokemon-form {
+  margin: 0;
+}
+
+#fokemon-main-image-container {
+  border: solid black 2px;
+  background-image: url("./assets/fokemonDetailBg.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#fokemon-main-image {
+  padding: 1em;
+  height: 180px;
+}
+
+#fokemon-flavor-text {
+  padding: 1em;
+  border-radius: 10px;
+  border: double slategray 4px;
+  background-color: lightskyblue;
+}
+
+.return-link {
+  text-align:center;
+  margin: auto;
+}
+
+@media only screen and (max-width: 550px) {
+  #fokemon-detail {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+/* ========= NOTFOUND PAGE =========== */
+#not-found-page {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+}
+
+#not-found-page h2 {
+  color: red;
+  font-size: 2.5em;
+}
+
+#not-found-page img {
+  height: 300px;
+  width: 300px;
+}
+
+#not-found-page p {
+  font-size: 1.5em;
+}
