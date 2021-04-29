@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useHistory, Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { fetchFokemonDetail } from "../store/actions.js"
+import { fetchFokemonDetail, setFokemon } from "../store/actions.js"
 import LoadingFokeball from "../components/loadingFokeball.jsx"
 
 function FokemonDetail() {
@@ -14,13 +14,17 @@ function FokemonDetail() {
   
   useEffect(() => {
     dispatch(fetchFokemonDetail(id))
+
+    return () => {
+      dispatch(setFokemon({})) //reset fokemon biar kalau masuk lagi fokemon id akan kosong sehingga tidak men trigger fokemon.id
+    }
   }, [id])
 
   useEffect(() => {
     if(fokemon.id) { //kondisional agar saat mounted tidak langsung ganti setloading ke false
       setTimeout(() => {
         setLoading(false)
-      }, 1000)
+      }, 900)
 
     } else if(error.code) { //jika fokemon.id tidak ada ( alias error di fetch )
       if(error.code === 404) {

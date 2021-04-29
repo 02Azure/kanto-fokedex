@@ -1,0 +1,5 @@
+export const SET_FOKEMONS = "fokemons/set"
+export const SET_FOKEMON = "fokemon/set"
+export const ADD_FAVORITES = "favorites/add"
+export const DEL_FAVORITES = "favorites/remove"
+export const SET_ERROR = "error/set"

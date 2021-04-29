@@ -1,8 +1,10 @@
-export const SET_FOKEMONS = "fokemons/set"
-export const SET_FOKEMON = "fokemon/set"
-export const ADD_FAVORITES = "favorites/add"
-export const DEL_FAVORITES = "favorites/remove"
-export const SET_ERROR = "error/set"
+import { 
+  SET_FOKEMONS,
+  SET_FOKEMON,
+  ADD_FAVORITES,
+  DEL_FAVORITES,
+  SET_ERROR 
+} from "./constants" 
 
 export function setFokemons(payload) {
   return { type: SET_FOKEMONS, payload }
