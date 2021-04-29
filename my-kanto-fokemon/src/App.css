@@ -8,6 +8,18 @@ html {
   margin: 50px 15px 30px 15px; 
 }
 
+th {
+  text-align: left;
+}
+
+th, td {
+  padding: 1em 0;
+}
+
+td {
+  padding-left: 2em;
+}
+
 /* ============== NAVBAR COMPONENT =========== */
 header {
   padding-left: 5px;
@@ -185,11 +197,20 @@ nav a {
   min-height:100vh;
 }
 
+#fokemon-detail-container {
+  background-color: lightcyan;
+  padding: 1em;
+  border: double 4px slategrey;
+  border-radius: 10px
+}
+
 #fokemon-detail {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+}
 
+#fokemon-form {
+  margin: 0;
 }
 
 #fokemon-main-image-container {
@@ -197,11 +218,21 @@ nav a {
   background-image: url("./assets/fokemonDetailBg.png");
   background-repeat: no-repeat;
   background-size: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #fokemon-main-image {
   padding: 1em;
-  max-height: 180px;
+  height: 180px;
+}
+
+#fokemon-flavor-text {
+  padding: 1em;
+  border-radius: 10px;
+  border: double slategray 4px;
+  background-color: lightskyblue;
 }
 
 .return-link {
@@ -209,6 +240,12 @@ nav a {
   margin: auto;
 }
 
+@media only screen and (max-width: 550px) {
+  #fokemon-detail {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
 /* ========= NOTFOUND PAGE =========== */
 #not-found-page {
   display: flex;

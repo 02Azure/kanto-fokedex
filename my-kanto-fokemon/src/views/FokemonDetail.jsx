@@ -44,23 +44,43 @@ function FokemonDetail() {
           <h2>{ "#" + fokemon.id + " " + fokemon.name }</h2>
           <hr/>
           
-          <div id="fokemon-detail">
-            <div id="fokebody-info">
-              <h3 id="fokemon-form">{ fokemon.form } Fokemon</h3>
-              <p id="fokemon-flavor-text">{ fokemon.flavor_text }</p>
-              <p id="fokemon-height">Height: { fokemon.height} m</p>
-              <p id="fokemon-weight">Weight: { fokemon.weight} kg</p>
-              <p id="fokemon-types">Type: { fokemon.types }</p>
-            </div>
-            <div id="fokemon-main-image-container">
-              <img 
-                id = "fokemon-main-image" 
-                src = { `https://pokeres.bastionbot.org/images/pokemon/${fokemon.id}.png`} 
-                alt = { fokemon.name + "_image" }
-              />
+          <div id="fokemon-detail-container">
+            <div id="fokemon-detail">
+              <div id="fokebody-info">
+                <h3 id="fokemon-form">{ fokemon.form } Fokemon</h3>
+                <br/>
+
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Type</th>
+                      <td>{ fokemon.types }</td>
+                    </tr>
+                    <tr>
+                      <th>Height</th>
+                      <td>{ fokemon.height} m</td>
+                    </tr>
+                    <tr>
+                      <th>Weight</th>
+                      <td>{ fokemon.weight} kg</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+
+              <div id="fokemon-main-image-container">
+                <img 
+                  id = "fokemon-main-image" 
+                  src = { `https://pokeres.bastionbot.org/images/pokemon/${fokemon.id}.png`} 
+                  alt = { fokemon.name + "_image" }
+                />
+              </div>
             </div>
           </div>
-    
+
+          <br/>
+          <div id="fokemon-flavor-text">{ fokemon.flavor_text }</div>
           <Link className="return-link" to="/">Return</Link>
         </>
       }

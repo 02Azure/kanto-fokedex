@@ -13,7 +13,7 @@ function Home() {
   const fokemons = useSelector(state => state.fokemons)
   const error = useSelector(state => state.error)
 
-  const [loadingFokemons, setLoadingFokemons] = useState(true)
+  const [loading, setLoading] = useState(true)
   const [filterKeyword, setFilterKeyword] = useState("")
   const [filteredFokemons, setFilteredFokemons] = useState([])
   const [timeoutId, setTimeoutId] = useState(0)
@@ -28,7 +28,7 @@ function Home() {
       setFilteredFokemons(fokemons)
 
       setTimeout(() => {
-        setLoadingFokemons(false)
+        setLoading(false)
       }, 1200)
 
     } else if(error.code) { //jika fokemons tidak ada isinya ( alias error di fetch )
@@ -71,7 +71,7 @@ function Home() {
         alt = "fokedex"
       />
       <br/>
-      { loadingFokemons ? 
+      { loading ? 
         <LoadingFokeball msg="Loading fokemon list..." />
       :
         <>
