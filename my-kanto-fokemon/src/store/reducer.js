@@ -2,13 +2,15 @@ import {
   SET_FOKEMONS,
   SET_FOKEMON,
   ADD_FAVORITES,
-  DEL_FAVORITES
+  DEL_FAVORITES,
+  SET_ERROR
 } from "./actions"
 
 const initialState = {
   favorites: [],
   fokemons: [],
-  fokemon: {}
+  fokemon: {},
+  error: {}
 }
 
 function reducer(state = initialState, action) {
@@ -30,9 +32,11 @@ function reducer(state = initialState, action) {
 
     return { ...state, favorites: newFavorite}
 
-  } else {
-    return state
+  } else if(type === SET_ERROR) {
+    return { ...state, error: payload }
   }
+  
+  return state
 }
 
 export default reducer

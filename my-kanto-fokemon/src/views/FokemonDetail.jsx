@@ -1,67 +1,33 @@
 import { useState, useEffect } from 'react'
 import { useParams, useHistory, Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { setFokemon } from "../store/actions.js"
+import { fetchFokemonDetail } from "../store/actions.js"
 import LoadingFokeball from "../components/loadingFokeball.jsx"
 
 function FokemonDetail() {
   const dispatch = useDispatch()
   const fokemon = useSelector(state => state.fokemon)
+  const error = useSelector(state => state.error)
   const [loading, setLoading] = useState(true)
   let history = useHistory()
   let { id } = useParams()
   
   useEffect(() => {
-    let mainDetail = {}
+    dispatch(fetchFokemonDetail(id))
+  }, [id])
 
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .then(resMain => {
-        if(!resMain.ok) throw { status: resMain.status, msg: resMain.statusText } 
-        return resMain.json()
-      })
-
-      .then(mainData => {
-        mainDetail = mainData
-        return fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
-      })
-
-      .then(resSecondary => {
-        if(!resSecondary.ok) throw { status: resSecondary.status, msg: resSecondary.statusText } 
-        return resSecondary.json()
-      })
-
-      .then(secondaryDetail => {
-        let { id, name, height, weight, types } = mainDetail
-        name = name[0].toUpperCase() + name.slice(1)
-        height /= 10
-        weight /= 10
-        types = types.map(typeNum => typeNum.type.name[0].toUpperCase() + typeNum.type.name.slice(1)).join("/")
-
-        let flavor_text = secondaryDetail.flavor_text_entries[0].flavor_text
-        flavor_text = flavor_text.split(".").join(". ")
-
-        let form = secondaryDetail.egg_groups[0].name
-        form = form[0].toUpperCase() + form.slice(1)
-
-        let fokemonData = {
-          id, name, form, height, weight, types, flavor_text
-        }
-
-        dispatch(setFokemon(fokemonData))
-      })
-
-    .catch((err => {
-      if(err.status === 404)
-      history.push("/notfound")
-    }))
-
-    .finally(() => {
-      //tes
+  useEffect(() => {
+    if(fokemon.id) { //kondisional agar saat mounted tidak langsung ganti setloading ke false
       setTimeout(() => {
         setLoading(false)
       }, 1000)
-    })
-  }, [id, history])
+
+    } else if(error.code) { //jika fokemon.id tidak ada ( alias error di fetch )
+      if(error.code === 404) {
+        history.push("/notfound")
+      }
+    }
+  }, [fokemon, error])
 
   return(
     <div id="fokemon-detail-page" className="page">

@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux"
-import { setFokemons } from "../store/actions.js"
+import { useHistory } from "react-router-dom"
+import { fetchFokemons } from "../store/actions.js"
 import FokemonTile from '../components/fokemonTile.jsx'
 import LoadingFokeball from '../components/loadingFokeball.jsx'
 import titleImg from '../assets/title.png'
 
 function Home() {
-  const fokemons = useSelector(state => state.fokemons)
   const dispatch = useDispatch()
+  const history = useHistory()
+
+  const fokemons = useSelector(state => state.fokemons)
+  const error = useSelector(state => state.error)
+
   const [loadingFokemons, setLoadingFokemons] = useState(true)
   const [filterKeyword, setFilterKeyword] = useState("")
   const [filteredFokemons, setFilteredFokemons] = useState([])
@@ -15,34 +20,32 @@ function Home() {
   const [isSearching, setIsSearching] = useState(false)
 
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
-      .then(response => response.json())
-      .then(data => {
-        data.results.forEach((fokemon, i) => {
-          fokemon.id = i + 1
-          fokemon.sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`
-        })
-        dispatch(setFokemons(data.results))
-        setFilteredFokemons(data.results)
-        //tes
-        setTimeout(() => {
-          setLoadingFokemons(false)
-        }, 1200)
-
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    dispatch(fetchFokemons())
   }, []) 
 
-  useEffect(() => {
+  useEffect(() => { //handle local state setelah data fokemons berhasil di fetch
+    if(fokemons.length) {
+      setFilteredFokemons(fokemons)
+
+      setTimeout(() => {
+        setLoadingFokemons(false)
+      }, 1200)
+
+    } else if(error.code) { //jika fokemons tidak ada isinya ( alias error di fetch )
+      if(error.code === 404) { //sementara hanya handle 404 not found
+        history.push("/notfound")
+      }
+    }
+  }, [fokemons, error])
+
+  useEffect(() => { //debouncing
     if(isSearching) {
-      setTimeoutId(setTimeout (() => {
+      setTimeoutId(setTimeout(() => {
         let filtered = fokemons.filter(fokemon => fokemon.name.includes(filterKeyword))
         setFilteredFokemons(filtered)
       }, 2000))
     }
-  }, [filterKeyword])
+  }, [fokemons, isSearching, filterKeyword])
 
   function handleFilterKeyword(event) {
     clearTimeout(timeoutId)
@@ -67,7 +70,7 @@ function Home() {
         src = { titleImg }  
         alt = "fokedex"
       />
-      <h3>All Fokemon</h3>
+      <br/>
       { loadingFokemons ? 
         <LoadingFokeball msg="Loading fokemon list..." />
       :
